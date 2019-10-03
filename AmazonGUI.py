@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-import PyQt5
+import os
+import random
+import socket
 
 from ClosedArea import ClosedArea
 from chessboard import ChessBoard
-from ai import searcher
 
 WIDTH = 800
 HEIGHT = 540
@@ -15,25 +16,30 @@ ARROW_PIECE = 40                        #箭大小
 EMPTY = 0
 BLACK = 1
 WHITE = 2
-ARROW = -1
+ARROW = 6
 SELECT = 3
 SETPIECE = 4
 THROW = 5
 
 
 import sys
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QMessageBox, QPushButton, QPlainTextEdit, QTextEdit
 from PyQt5.QtCore import Qt, QSize, QDateTime
-from PyQt5.QtGui import QPixmap, QIcon, QPalette, QPainter, QFont
+from PyQt5.QtGui import QPixmap, QIcon, QFont
 
-
+ip = "127.0.0.1"
+port = 52052
+new_socket = socket.socket()  # 创建 socket 对象
+new_socket.connect((ip, port))  # 连接
+get_ai_board = [[EMPTY for n in range(10)] for m in range(10)]
+back_ai_str = ''
+ai_down = True  # AI已下棋，主要是为了加锁，当值是False的时候说明AI正在思考，这时候玩家鼠标点击失效，要忽略掉 mousePressEvent
 # ----------------------------------------------------------------------
 # 定义线程类执行AI的算法
 # ----------------------------------------------------------------------
 class AI(QtCore.QThread):
     finishSignal = QtCore.pyqtSignal(int, int)
-
     # 构造函数里增加形参
     def __init__(self, board, parent=None):
         super(AI, self).__init__(parent)
@@ -41,10 +47,16 @@ class AI(QtCore.QThread):
 
     # 重写 run() 函数
     def run(self):
-        self.ai = searcher()
-        self.ai.board = self.board
-        score, x, y = self.ai.search(2, 2)
-        self.finishSignal.emit(x, y)
+        send_str = ''
+        for i in range(len(self.board)):
+            for j in range(len(self.board[i])):
+                send_str += str(self.board[i][j])
+        new_socket.send(send_str.encode(encoding='utf-8'))  # 发生数据
+        print('AI思考中......')
+        global back_ai_str
+        back_ai_str = new_socket.recv(4096).decode()  # 结束数据
+        print("AI决定：")
+        self.finishSignal.emit(1, 2)
 
 
 # ----------------------------------------------------------------------
@@ -215,12 +227,11 @@ class Amazon(QWidget):
         #更新棋盘UI
         self.ui_update(self.chessboard)
         self.mouse_point.raise_()  # 鼠标始终在最上层
-        self.ai_down = True  # AI已下棋，主要是为了加锁，当值是False的时候说明AI正在思考，这时候玩家鼠标点击失效，要忽略掉 mousePressEvent
         self.setMouseTracking(True)
         self.show()
 
     def mousePressEvent(self, e):  # 玩家下棋
-        if e.button() == Qt.LeftButton and self.ai_down == True:    #Qt.LeftButton 判断鼠标左键是否按下
+        if e.button() == Qt.LeftButton and ai_down == True:    #Qt.LeftButton 判断鼠标左键是否按下
             x, y = e.x(), e.y()  #鼠标坐标
             i, j = self.coordinate_transform_pixel2map(x, y)        # 对应棋盘坐标，详见https://blog.csdn.net/weixin_34179968/article/details/86253342
             if not i is None and not j is None:                     # 棋子落在棋盘上，排除边缘，落在边缘为零
@@ -306,12 +317,6 @@ class Amazon(QWidget):
             if winner != EMPTY:
                 self.gameover(winner)
 
-                        # self.draw(i, j)
-                        # self.ai_down = False
-                        # board = self.chessboard.board()
-                        # self.AI = AI(board)                         # 新建线程对象，传入棋盘参数
-                        # self.AI.finishSignal.connect(self.AI_draw)  # 结束线程，传出参数
-                        # self.AI.start()                             # run
 
     #物理坐标——>逻辑坐标
     def coordinate_transform_map2pixel(self, i, j):
@@ -417,7 +422,8 @@ class Amazon(QWidget):
         self.setpiece_x, self.setpiece_y = 1000, 1000
         self.record.clear()
         self.piece_now = WHITE  # 白棋先行
-
+        global ai_down
+        ai_down = True
         self.white_edit.setReadOnly(False)
         self.black_edit.setReadOnly(False)
         self.race_place_edit.setReadOnly(False)
@@ -430,17 +436,19 @@ class Amazon(QWidget):
         if reply == QMessageBox.Yes:
             print('yes')
             self.my_turn = WHITE
+            global ai_down
+            self.start_ai()
         else:
             print('no')
+            global ai_down
             self.my_turn = BLACK
     # 提交对手信息
     def commite(self):
         if self.piece_now == self.my_turn:
-            print('我方AI正在思考，请稍等....')
-            # stone :[[棋子颜色, x轴, y轴],在char列表中的位置 ]， char：每个棋子所对的八个封闭局面
-            stone, char = self.isclosed.is_closed(self.chessboard.board())
-            print(stone)
-            print(char)
+            # 开启AI新进程
+            global ai_down
+            ai_down =False
+            self.start_ai()
         else:
             print('对方走子')
     # 保存棋谱
@@ -491,35 +499,82 @@ class Amazon(QWidget):
         #     print()
         # else:
         #     self.close()
+    # 对AI程序返回进行判断
+    def AI_draw(self,x, y):
+        # 先将 字符串转换成列表
+        global get_ai_board
 
-    # def AI_draw(self, i, j):
-    #     if self.step != 0:
-    #         self.draw(i, j)  # AI
-    #         self.x, self.y = self.coordinate_transform_map2pixel(i, j)
-    #     self.ai_down = True
-    #     self.update()
-    #
-    # def draw(self, i, j):
-    #     x, y = self.coordinate_transform_map2pixel(i, j)
-    #
-    #     if self.piece_now == BLACK:
-    #         self.pieces[self.step].setPixmap(self.black)  # 放置黑色棋子
-    #         self.piece_now = WHITE
-    #         self.chessboard.draw_xy(i, j, BLACK)          #设置该点落子状态
-    #     else:
-    #         self.pieces[self.step].setPixmap(self.white)  # 放置白色棋子
-    #         self.piece_now = BLACK
-    #         self.chessboard.draw_xy(i, j, WHITE)          #设置该点落子状态
-    #
-    #     self.pieces[self.step].setGeometry(x, y, CHESS_PIECE, CHESS_PIECE)  # 画出棋子
-    #     self.step += 1  # 步数+1
-    #
-    #     winner = self.chessboard.anyone_win(i, j)  # 判断输赢
-    #     if winner != EMPTY:
-    #         self.mouse_point.clear()
-    #         self.gameover(winner)
+        self.next_white_frame.clear()
+        self.arrow_white_frame.clear()
+        self.start_white_frame.clear()
+
+        self.start_black_frame.clear()
+        self.arrow_black_frame.clear()
+        self.next_black_frame.clear()
+        for i in range(10):
+            for j in range(10):
+                get_ai_board[i][j] = int(back_ai_str[i*10+j])
+
+                if get_ai_board[i][j] != self.chessboard.board()[i][j]:
+                    self.chessboard.board()[i][j] = get_ai_board[i][j]
+                    m, n = self.coordinate_transform_map2pixel(i, j)
+                    # 白方
+                    if self.my_turn == WHITE:
+                        if get_ai_board[i][j] == EMPTY:
+                            print('空白')
+                            self.record.append(str(chr(j + 97)) + str(10 - i))
+                            print(str(self.record))
+                            self.start_white_frame.setPixmap(QPixmap('img/white_frame.png'))
+                            self.start_white_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
+                        elif get_ai_board[i][j] == WHITE:
+                            print('白棋')
+                            self.record.append(str(chr(j + 97)) + str(10 - i))
+                            print(str(self.record))
+                            self.next_white_frame.setPixmap(QPixmap('img/white_frame.png'))
+                            self.next_white_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
+                        elif get_ai_board[i][j] == ARROW:
+                            print('箭')
+                            self.record.append(str(chr(j + 97)) + str(10 - i))
+                            print(str(self.record))
+                            self.arrow_white_frame.setPixmap(QPixmap('img/white_frame.png'))
+                            self.arrow_white_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
+                    # 黑方
+                    else:
+                        if get_ai_board[i][j] == EMPTY:
+                            self.record.append(str(chr(j + 97)) + str(10 - i))
+                            print(str(self.record))
+                            self.start_black_frame.setPixmap(QPixmap('img/black_frame.png'))
+                            self.start_black_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
+                        elif get_ai_board[i][j] == BLACK:
+                            self.record.append(str(chr(j + 97)) + str(10 - i))
+                            print(str(self.record))
+                            self.next_black_frame.setPixmap(QPixmap('img/black_frame.png'))
+                            self.next_black_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
+                        else:
+                            self.record.append(str(chr(j + 97)) + str(10 - i))
+                            print(str(self.record))
+                            self.arrow_black_frame.setPixmap(QPixmap('img/black_frame.png'))
+                            self.arrow_black_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
+
+
+        self.ui_update(self.chessboard)
+        print(get_ai_board)
+    def start_ai(self):
+        self.AI = AI(self.chessboard.board())  # 新建线程对象，传入棋盘参数
+        self.AI.finishSignal.connect(self.AI_draw)  # 结束线程，传出参数
+        self.AI.start()  # run
+        if self.my_turn == BLACK:
+            self.piece_now = WHITE
+        else:
+            self.piece_now = BLACK
+        global ai_down
+        ai_down = True
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Amazon()
     sys.exit(app.exec_())
+
+

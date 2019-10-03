@@ -4,12 +4,9 @@
     <list default="true" id="fa94a023-2132-4117-9982-f1dc72e0887c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AmazonGUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonGUI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClosedArea.py" beforeDir="false" afterPath="$PROJECT_DIR$/ClosedArea.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chessboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/chessboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/black.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/black.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/frame.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/white_frame.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/white.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/white.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/将棋子图片从棋盘上移除.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/foo.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,42 +19,40 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AmazonGUI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="489" column="8" lean-forward="true" selection-start-line="489" selection-start-column="8" selection-end-line="489" selection-end-column="8" />
+            <state relative-caret-position="48">
+              <caret line="547" column="56" selection-start-line="547" selection-start-column="56" selection-end-line="547" selection-end-column="56" />
               <folding>
-                <element signature="e#45#57#0" expanded="true" />
-                <element signature="e#13713#13834#0" />
-                <element signature="e#13912#14162#0" />
-                <element signature="e#14221#15539#0" />
-                <element signature="e#15583#17534#0" />
-                <element signature="e#17575#18545#0" />
-                <element signature="e#18589#18861#0" />
-                <element signature="e#18906#19120#0" />
-                <element signature="e#19167#20864#0" />
-                <element signature="e#21395#21421#0" />
+                <element signature="e#45#54#0" expanded="true" />
+                <element signature="e#1420#1603#0" />
+                <element signature="e#7669#7757#0" />
+                <element signature="e#13703#13824#0" />
+                <element signature="e#13902#14152#0" />
+                <element signature="e#14211#15529#0" />
+                <element signature="e#15573#17524#0" />
+                <element signature="e#17565#18535#0" />
+                <element signature="e#18853#19261#0" />
+                <element signature="e#19071#19618#0" />
+                <element signature="e#19250#20947#0" />
+                <element signature="e#20989#21368#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/foo.txt">
+        <entry file="file://$PROJECT_DIR$/ClosedArea.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+            <state>
+              <caret column="9" selection-start-column="9" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ClosedArea.py">
+        <entry file="file://$PROJECT_DIR$/foo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
-              <folding>
-                <element signature="e#2968#3189#0" />
-                <element signature="e#3253#3428#0" />
-              </folding>
+            <state relative-caret-position="29">
+              <caret line="1" column="19" lean-forward="true" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -65,19 +60,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chessboard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="106" selection-start-line="106" selection-end-line="106" />
+            <state relative-caret-position="137">
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
               <folding>
-                <element signature="e#1062#1081#0" />
                 <element signature="e#1141#1167#0" />
                 <element signature="e#1234#1259#0" />
                 <element signature="e#1331#1506#0" />
                 <element signature="e#1592#1787#0" />
                 <element signature="e#1825#2167#0" />
                 <element signature="e#2203#3541#0" />
-                <element signature="e#2304#2478#0" />
-                <element signature="e#2534#3224#0" />
-                <element signature="e#4647#4761#0" />
               </folding>
             </state>
           </provider>
@@ -93,40 +84,45 @@
       <list>
         <option value="$PROJECT_DIR$/gobangGUI.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/ClosedArea.py" />
         <option value="$PROJECT_DIR$/chessboard.py" />
         <option value="$PROJECT_DIR$/AmazonGUI.py" />
-        <option value="$PROJECT_DIR$/ClosedArea.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1358" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1456" />
-    <option name="height" value="876" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Amazon-Master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Amazon-Master" type="462c0819:PsiDirectoryNode" />
+              <item name="AmazonGUI-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AmazonGUI-master" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AmazonGUI-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AmazonGUI-master" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Amazon-Master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -265,16 +261,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1456" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15444288" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14211309" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32851985" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.9016172" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.7318059" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32786885" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.24590164" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.38688526" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32884097" />
@@ -333,16 +329,7 @@
     <entry file="file://$PROJECT_DIR$/img/white.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/ai.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="764">
-          <caret line="514" column="13" selection-start-line="514" selection-start-column="13" selection-end-line="514" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/white_frame.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ai.py" />
     <entry file="file://$PROJECT_DIR$/img/amazon_board.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -364,69 +351,78 @@
     <entry file="file://$PROJECT_DIR$/img/arrow.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="87">
-            <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/README.md" />
+    <entry file="file://D:/Python3.5/Lib/multiprocessing/spawn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
         </state>
       </provider>
     </entry>
+    <entry file="file://D:/Python3.5/Lib/multiprocessing/process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python3.5/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="308" selection-start-line="308" selection-end-line="308" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/white_frame.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/chessboard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="106" selection-start-line="106" selection-end-line="106" />
+        <state relative-caret-position="137">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
           <folding>
-            <element signature="e#1062#1081#0" />
             <element signature="e#1141#1167#0" />
             <element signature="e#1234#1259#0" />
             <element signature="e#1331#1506#0" />
             <element signature="e#1592#1787#0" />
             <element signature="e#1825#2167#0" />
             <element signature="e#2203#3541#0" />
-            <element signature="e#2304#2478#0" />
-            <element signature="e#2534#3224#0" />
-            <element signature="e#4647#4761#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ClosedArea.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AmazonGUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="489" column="8" lean-forward="true" selection-start-line="489" selection-start-column="8" selection-end-line="489" selection-end-column="8" />
+        <state relative-caret-position="48">
+          <caret line="547" column="56" selection-start-line="547" selection-start-column="56" selection-end-line="547" selection-end-column="56" />
           <folding>
-            <element signature="e#45#57#0" expanded="true" />
-            <element signature="e#13713#13834#0" />
-            <element signature="e#13912#14162#0" />
-            <element signature="e#14221#15539#0" />
-            <element signature="e#15583#17534#0" />
-            <element signature="e#17575#18545#0" />
-            <element signature="e#18589#18861#0" />
-            <element signature="e#18906#19120#0" />
-            <element signature="e#19167#20864#0" />
-            <element signature="e#21395#21421#0" />
+            <element signature="e#45#54#0" expanded="true" />
+            <element signature="e#1420#1603#0" />
+            <element signature="e#7669#7757#0" />
+            <element signature="e#13703#13824#0" />
+            <element signature="e#13902#14152#0" />
+            <element signature="e#14211#15529#0" />
+            <element signature="e#15573#17524#0" />
+            <element signature="e#17565#18535#0" />
+            <element signature="e#18853#19261#0" />
+            <element signature="e#19071#19618#0" />
+            <element signature="e#19250#20947#0" />
+            <element signature="e#20989#21368#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/foo.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ClosedArea.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
-          <folding>
-            <element signature="e#2968#3189#0" />
-            <element signature="e#3253#3428#0" />
-          </folding>
+        <state relative-caret-position="29">
+          <caret line="1" column="19" lean-forward="true" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
         </state>
       </provider>
     </entry>

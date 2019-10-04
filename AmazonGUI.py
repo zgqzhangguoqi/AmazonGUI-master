@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-import os
-import random
 import socket
-
 from ClosedArea import ClosedArea
 from chessboard import ChessBoard
 
@@ -11,8 +8,8 @@ WIDTH = 800
 HEIGHT = 540
 MARGIN = HEIGHT / 12                     #边缘留余
 GRID = HEIGHT / 12                       #方格宽度：45
-CHESS_PIECE = 45                        #棋子大小
-ARROW_PIECE = 40                        #箭大小
+CHESS_PIECE = 45                         #棋子大小
+ARROW_PIECE = 40                         #箭大小
 EMPTY = 0
 BLACK = 1
 WHITE = 2
@@ -34,6 +31,7 @@ new_socket = socket.socket()  # 创建 socket 对象
 new_socket.connect((ip, port))  # 连接
 get_ai_board = [[EMPTY for n in range(10)] for m in range(10)]
 back_ai_str = ''
+winner = []
 ai_down = True  # AI已下棋，主要是为了加锁，当值是False的时候说明AI正在思考，这时候玩家鼠标点击失效，要忽略掉 mousePressEvent
 # ----------------------------------------------------------------------
 # 定义线程类执行AI的算法
@@ -41,21 +39,31 @@ ai_down = True  # AI已下棋，主要是为了加锁，当值是False的时候�
 class AI(QtCore.QThread):
     finishSignal = QtCore.pyqtSignal(int, int)
     # 构造函数里增加形参
-    def __init__(self, board, parent=None):
+    def __init__(self, board, myturn ,parent=None):
         super(AI, self).__init__(parent)
         self.board = board
+        self.turn = myturn
 
     # 重写 run() 函数
     def run(self):
         send_str = ''
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
-                send_str += str(self.board[i][j])
+                if self.turn == WHITE:
+                    if self.board[i][j] == WHITE:
+                        send_str += str(1)
+                    elif self.board[i][j] == BLACK:
+                        send_str += str(2)
+                    else:
+                        send_str+= str(self.board[i][j])
+                else:
+                    send_str += str(self.board[i][j])
+        print('转换后发送的棋盘：'+send_str)
         new_socket.send(send_str.encode(encoding='utf-8'))  # 发生数据
         print('AI思考中......')
         global back_ai_str
         back_ai_str = new_socket.recv(4096).decode()  # 结束数据
-        print("AI决定：")
+        print("接收到AI决定：" + back_ai_str)
         self.finishSignal.emit(1, 2)
 
 
@@ -112,7 +120,7 @@ class Amazon(QWidget):
         self.white_edit.move(650, 72)
 
         self.black_txv = QLabel(self)
-        self.black_txv.setText('黑棋(先手):')
+        self.black_txv.setText('黑棋(后手):')
         self.black_txv.setFont(QFont('宋体', 11))
         self.black_txv.resize(100, 50)
         self.black_txv.move(560, 100)
@@ -317,12 +325,12 @@ class Amazon(QWidget):
             if winner != EMPTY:
                 self.gameover(winner)
 
-
-    #物理坐标——>逻辑坐标
+    # 物理坐标——>逻辑坐标
     def coordinate_transform_map2pixel(self, i, j):
         # 从 chessMap 里的逻辑坐标到 UI 上的绘制坐标的转换
         return  MARGIN + (j+1) * GRID - CHESS_PIECE,MARGIN + (i+1) * GRID - CHESS_PIECE
-    #逻辑坐标——>物理坐标
+
+    # 逻辑坐标——>物理坐标
     def coordinate_transform_pixel2map(self, x, y):
         # 从 UI 上的绘制坐标到 chessMap 里的逻辑坐标的转换
         i, j = int((y - MARGIN) / GRID), int((x - MARGIN) / GRID)
@@ -332,7 +340,7 @@ class Amazon(QWidget):
         else:
             return i, j
 
-    #更新UI界面
+    # 更新UI界面
     def ui_update(self, chessboard):
         # 初始化棋盘棋子
         for i in range(len(chessboard.board())):
@@ -358,7 +366,7 @@ class Amazon(QWidget):
         self.update()
     # 悔棋
     def regretGame(self):
-        if len(self.record)%3 == 0 and len(self.record) != 0:  #取消放箭
+        if len(self.record) % 3 == 0 and len(self.record) != 0:  #取消放箭
             pop = self.record.pop()
             self.chessboard.draw_xy(10-int(pop[1:]), ord(pop[0])-97, EMPTY)
             self.ui_update(self.chessboard)
@@ -422,6 +430,8 @@ class Amazon(QWidget):
         self.setpiece_x, self.setpiece_y = 1000, 1000
         self.record.clear()
         self.piece_now = WHITE  # 白棋先行
+        global get_ai_board
+        get_ai_board = [[EMPTY for n in range(10)] for m in range(10)]
         global ai_down
         ai_down = True
         self.white_edit.setReadOnly(False)
@@ -447,7 +457,7 @@ class Amazon(QWidget):
         if self.piece_now == self.my_turn:
             # 开启AI新进程
             global ai_down
-            ai_down =False
+            ai_down = False
             self.start_ai()
         else:
             print('对方走子')
@@ -473,6 +483,7 @@ class Amazon(QWidget):
                     timelist[j] = timelist[j] + i
                 else:
                     j = j + 1
+            # self.file_title[3] = '['+winner+']'
             self.file_title[4] = '[' + timelist[4] + '/' + timelist[1][:len(timelist[1]) - 1] + '/' + timelist[
                 2] + ' ' + timelist[3] + ' ' + self.race_place_edit.toPlainText() + ']'
             self.file_title[5] = '[' + self.race_name_edit.toPlainText() + ']'
@@ -495,72 +506,101 @@ class Amazon(QWidget):
             # self.sound_defeated.play()
             reply = QMessageBox.question(self, '提示', '我方失败!')
 
-        # if reply == QMessageBox.Yes:  # 复位
-        #     print()
-        # else:
-        #     self.close()
     # 对AI程序返回进行判断
     def AI_draw(self,x, y):
         # 先将 字符串转换成列表
         global get_ai_board
-
         self.next_white_frame.clear()
         self.arrow_white_frame.clear()
         self.start_white_frame.clear()
-
         self.start_black_frame.clear()
         self.arrow_black_frame.clear()
         self.next_black_frame.clear()
+        str_ai = ''
+        print(self.my_turn)
+        for i in range(100):
+
+                if self.my_turn == WHITE:
+
+                    if int(back_ai_str[i]) == WHITE:
+                        str_ai += str(1)
+                    elif int(back_ai_str[i]) == BLACK:
+                        str_ai += str(2)
+                    else:
+                        str_ai += back_ai_str[i]
+                else:
+                    str_ai += back_ai_str[i]
+        print('转换后接收的棋盘:'+str_ai)
+        start, end, arrow = [1,2], [1,2], [1,2]
         for i in range(10):
             for j in range(10):
-                get_ai_board[i][j] = int(back_ai_str[i*10+j])
-
+                get_ai_board[i][j] = int(str_ai[i*10+j])
                 if get_ai_board[i][j] != self.chessboard.board()[i][j]:
-                    self.chessboard.board()[i][j] = get_ai_board[i][j]
+
                     m, n = self.coordinate_transform_map2pixel(i, j)
                     # 白方
                     if self.my_turn == WHITE:
-                        if get_ai_board[i][j] == EMPTY:
-                            print('空白')
-                            self.record.append(str(chr(j + 97)) + str(10 - i))
-                            print(str(self.record))
+                        if self.chessboard.board()[i][j] == WHITE and self.chessboard.board()[i][j] != get_ai_board[i][j]:
+                            start = [str(chr(j + 97)), str(10 - i)]
+                            print('白棋起点：', start)
+                            # self.record.append(str(chr(j + 97)) + str(10 - i))
                             self.start_white_frame.setPixmap(QPixmap('img/white_frame.png'))
                             self.start_white_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
-                        elif get_ai_board[i][j] == WHITE:
-                            print('白棋')
-                            self.record.append(str(chr(j + 97)) + str(10 - i))
-                            print(str(self.record))
+                        if get_ai_board[i][j] == WHITE:
+                            end = [str(chr(j + 97)), str(10 - i)]
+                            print('白棋落点：', end)
                             self.next_white_frame.setPixmap(QPixmap('img/white_frame.png'))
                             self.next_white_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
                         elif get_ai_board[i][j] == ARROW:
-                            print('箭')
-                            self.record.append(str(chr(j + 97)) + str(10 - i))
-                            print(str(self.record))
+                            arrow = [str(chr(j + 97)), str(10 - i)]
+                            print('箭:', arrow)
+                            # self.record.append(str(chr(j + 97)) + str(10 - i))
+                            # print(str(self.record))
                             self.arrow_white_frame.setPixmap(QPixmap('img/white_frame.png'))
                             self.arrow_white_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
                     # 黑方
                     else:
-                        if get_ai_board[i][j] == EMPTY:
-                            self.record.append(str(chr(j + 97)) + str(10 - i))
-                            print(str(self.record))
+                        if self.chessboard.board()[i][j] == BLACK and self.chessboard.board()[i][j] != get_ai_board[i][j]:
+                            start = [str(chr(j + 97)), str(10 - i)]
+                            print('黑棋起点：', start)
                             self.start_black_frame.setPixmap(QPixmap('img/black_frame.png'))
                             self.start_black_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
                         elif get_ai_board[i][j] == BLACK:
-                            self.record.append(str(chr(j + 97)) + str(10 - i))
-                            print(str(self.record))
+                            end = [str(chr(j + 97)), str(10 - i)]
+                            print('黑棋落点：', end)
                             self.next_black_frame.setPixmap(QPixmap('img/black_frame.png'))
                             self.next_black_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
                         else:
-                            self.record.append(str(chr(j + 97)) + str(10 - i))
-                            print(str(self.record))
+                            arrow = [str(chr(j + 97)), str(10 - i)]
+                            print('箭:', arrow)
                             self.arrow_black_frame.setPixmap(QPixmap('img/black_frame.png'))
                             self.arrow_black_frame.setGeometry(m, n, CHESS_PIECE, CHESS_PIECE)
-
-
+        for i in range(10):
+            for j in range(10):
+                self.chessboard.board()[i][j] = get_ai_board[i][j]
         self.ui_update(self.chessboard)
+        self.record.append(str(start[0])+str(start[1]))
+        self.record.append(str(end[0])+str(end[1]))
+        self.record.append(str(arrow[0])+str(arrow[1]))
+
+        # if back_ai_str[100] == '1':
+        #     print('我方胜利')
+        #     global winner
+        #     if self.my_turn == BLACK:
+        #         winner = winner + self.black_edit.toPlainText() +'赢'
+        #     else:
+        #         winner = winner + self.white_edit.toPlainText() +'赢'
+        #     self.gameover(self.my_turn)
+        # elif back_ai_str[100] == '0':
+        #     self.gameover(10)
+        #     print('我方失败')
+        #     if self.my_turn == BLACK:
+        #         winner = winner + self.white_edit.toPlainText() +'赢'
+        #     else:
+        #         winner = winner + self.black_edit.toPlainText() +'赢'
         print(get_ai_board)
     def start_ai(self):
-        self.AI = AI(self.chessboard.board())  # 新建线程对象，传入棋盘参数
+        self.AI = AI(self.chessboard.board(),self.my_turn)  # 新建线程对象，传入棋盘参数
         self.AI.finishSignal.connect(self.AI_draw)  # 结束线程，传出参数
         self.AI.start()  # run
         if self.my_turn == BLACK:
@@ -576,5 +616,3 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Amazon()
     sys.exit(app.exec_())
-
-

@@ -583,21 +583,21 @@ class Amazon(QWidget):
         self.record.append(str(end[0])+str(end[1]))
         self.record.append(str(arrow[0])+str(arrow[1]))
 
-        # if back_ai_str[100] == '1':
-        #     print('我方胜利')
-        #     global winner
-        #     if self.my_turn == BLACK:
-        #         winner = winner + self.black_edit.toPlainText() +'赢'
-        #     else:
-        #         winner = winner + self.white_edit.toPlainText() +'赢'
-        #     self.gameover(self.my_turn)
-        # elif back_ai_str[100] == '0':
-        #     self.gameover(10)
-        #     print('我方失败')
-        #     if self.my_turn == BLACK:
-        #         winner = winner + self.white_edit.toPlainText() +'赢'
-        #     else:
-        #         winner = winner + self.black_edit.toPlainText() +'赢'
+        if back_ai_str[100] == '1':
+            print('我方胜利')
+            # global winner
+            # if self.my_turn == BLACK:
+            #     winner = winner + self.black_edit.toPlainText() +'赢'
+            # else:
+            #     winner = winner + self.white_edit.toPlainText() +'赢'
+            self.gameover(self.my_turn)
+        elif back_ai_str[100] == '2':
+            print('我方失败')
+            # if self.my_turn == BLACK:
+            #     winner = winner + self.white_edit.toPlainText() +'赢'
+            # else:
+            #     winner = winner + self.black_edit.toPlainText() +'赢'
+            self.gameover(10)
         print(get_ai_board)
     def start_ai(self):
         self.AI = AI(self.chessboard.board(),self.my_turn)  # 新建线程对象，传入棋盘参数

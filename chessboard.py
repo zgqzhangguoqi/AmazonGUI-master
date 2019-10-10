@@ -106,7 +106,7 @@ class ChessBoard(object):
             return EMPTY
 
     def add_file_title(self,list):  # 创建一个新的txt文件,并写入己方和对方的名称
-            f = open("foo.txt", "w+", encoding="utf-8")
+            f = open("棋谱.txt", "w+", encoding="utf-8")
             stri = ''
             for i in list:
                 stri = stri+i
@@ -114,7 +114,7 @@ class ChessBoard(object):
             f.close()
 
     def save_data(self, r, chess):  # 将数据写入文件
-        f = open("foo.txt", "a+", encoding="utf-8")
+        f = open("棋谱.txt", "a+", encoding="utf-8")
         f.write('\n' + str(r) + ' ')
         if len(chess) == 1:
             f.write(chess[0])
@@ -131,7 +131,7 @@ class ChessBoard(object):
         f.close()
 
     def delete_data(self, list):  # 悔棋
-        f = open("foo.txt", "w", encoding="utf-8")
+        f = open("棋谱.txt", "w", encoding="utf-8")
         self.add_file_title(list)
         f.write("")
         f.close()

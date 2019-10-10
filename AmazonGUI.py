@@ -197,11 +197,16 @@ class Amazon(QWidget):
         self.commite_btn.move(610, 320)
         self.commite_btn.clicked.connect(self.commite)  # clicked。
 
+        self.tishi_txv = QLabel(self)
+        self.tishi_txv.setText('请选择先后手')
+        self.tishi_txv.setFont(QFont('宋体', 12))
+        self.tishi_txv.resize(200, 100)
+        self.tishi_txv.move(600, 375)
 
         # 初始化棋子、箭、选择框图片对象
         self.black = QPixmap('img/black.png')       # 将图片转换为Qt对象
         self.white = QPixmap('img/white.png')
-        self.arrow = QPixmap('img/arrow.jpg')
+        self.arrow = QPixmap('img/arrow.png')
         # 参数初始化
         self.piece_now = WHITE  # 黑棋先行
         self.my_turn = EMPTY   # 玩家先行
@@ -422,6 +427,7 @@ class Amazon(QWidget):
         self.next_white_frame.clear()
         self.arrow_black_frame.clear()
         self.arrow_white_frame.clear()
+        self.tishi_txv.setText('请选择先后手')
         self.piece_now = WHITE  # 黑棋先行
         self.my_turn = EMPTY    # 先手
         self.x, self.y = 1000, 1000
@@ -460,6 +466,7 @@ class Amazon(QWidget):
             ai_down = False
             self.start_ai()
         else:
+            self.tishi_txv.setText('请模仿对手下棋')
             print('对方走子')
     # 保存棋谱
     def chess_score(self):
@@ -498,13 +505,22 @@ class Amazon(QWidget):
             QMessageBox.question(self, '提示', '已保存！', QMessageBox.Yes)
 
     def gameover(self, winner):
-        self.chess_score()
         if winner == self.my_turn:
+            if self.my_turn == BLACK:
+                self.file_title[3] = '后手胜'
+            else:
+                self.file_title[3] = '先手胜'
             # self.sound_win.play()
             reply = QMessageBox.question(self, '提示', '我方胜利!')
+            self.chess_score()
         else:
             # self.sound_defeated.play()
+            if self.my_turn == BLACK:
+                self.file_title[3] = '[先手胜]'
+            else:
+                self.file_title[3] = '[后手胜]'
             reply = QMessageBox.question(self, '提示', '我方失败!')
+            self.chess_score()
 
     # 对AI程序返回进行判断
     def AI_draw(self,x, y):
@@ -578,6 +594,7 @@ class Amazon(QWidget):
         for i in range(10):
             for j in range(10):
                 self.chessboard.board()[i][j] = get_ai_board[i][j]
+        self.tishi_txv.setText('请模仿对手下棋')
         self.ui_update(self.chessboard)
         self.record.append(str(start[0])+str(start[1]))
         self.record.append(str(end[0])+str(end[1]))
@@ -599,7 +616,9 @@ class Amazon(QWidget):
             #     winner = winner + self.black_edit.toPlainText() +'赢'
             self.gameover(10)
         print(get_ai_board)
+
     def start_ai(self):
+        self.tishi_txv.setText('AI思考中......')
         self.AI = AI(self.chessboard.board(),self.my_turn)  # 新建线程对象，传入棋盘参数
         self.AI.finishSignal.connect(self.AI_draw)  # 结束线程，传出参数
         self.AI.start()  # run

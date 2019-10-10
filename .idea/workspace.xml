@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa94a023-2132-4117-9982-f1dc72e0887c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/arrow.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AmazonGUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/AmazonGUI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/foo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chessboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/chessboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foo.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/arrow.jpg" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,12 +20,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AmazonGUI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="870">
-              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="-469">
+              <caret line="520" column="39" selection-start-line="520" selection-start-column="39" selection-end-line="520" selection-end-column="39" />
               <folding>
                 <element signature="e#45#58#0" expanded="true" />
+                <element signature="e#8910#14072#0" />
+                <element signature="e#14152#14273#0" />
+                <element signature="e#14353#14603#0" />
+                <element signature="e#14663#15981#0" />
                 <element signature="e#16025#17978#0" />
-                <element signature="e#18019#19133#0" />
+                <element signature="e#18225#19381#0" />
+                <element signature="e#19177#19531#0" />
+                <element signature="e#19776#20002#0" />
+                <element signature="e#19802#21549#0" />
+                <element signature="e#22283#22641#0" />
+                <element signature="e#26888#27260#0" />
               </folding>
             </state>
           </provider>
@@ -32,10 +43,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chessboard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="40" column="26" selection-start-line="40" selection-start-column="26" selection-end-line="40" selection-end-column="26" />
+            <state relative-caret-position="109">
+              <caret line="105" column="24" lean-forward="true" selection-start-line="105" selection-start-column="24" selection-end-line="105" selection-end-column="24" />
               <folding>
-                <element signature="e#1591#1786#0" />
                 <element signature="e#1824#2166#0" />
                 <element signature="e#2202#3540#0" />
                 <element signature="e#3616#3790#0" />
@@ -47,6 +57,11 @@
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>foo.txt</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -81,6 +96,11 @@
               <item name="AmazonGUI-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="AmazonGUI-master" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="AmazonGUI-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AmazonGUI-master" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -89,7 +109,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/img" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -200,9 +220,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.AmazonGUI" />
+        <item itemvalue="Python.chessboard" />
         <item itemvalue="Python.gobangGUI" />
         <item itemvalue="Python.ai" />
-        <item itemvalue="Python.chessboard" />
       </list>
     </recent_temporary>
   </component>
@@ -236,8 +256,8 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3262295" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3622951" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.13606557" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25081968" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.38688526" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -313,9 +333,6 @@
     <entry file="file://$PROJECT_DIR$/img/black.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/arrow.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://D:/Python3.5/Lib/multiprocessing/spawn.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -344,13 +361,6 @@
     <entry file="file://$PROJECT_DIR$/img/white_frame.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/foo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="37" selection-start-column="37" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ClosedArea.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -358,24 +368,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/foo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/arrow.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/arrow.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/棋谱.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="17" selection-start-column="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AmazonGUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="-469">
+          <caret line="520" column="39" selection-start-line="520" selection-start-column="39" selection-end-line="520" selection-end-column="39" />
           <folding>
             <element signature="e#45#58#0" expanded="true" />
+            <element signature="e#8910#14072#0" />
+            <element signature="e#14152#14273#0" />
+            <element signature="e#14353#14603#0" />
+            <element signature="e#14663#15981#0" />
             <element signature="e#16025#17978#0" />
-            <element signature="e#18019#19133#0" />
+            <element signature="e#18225#19381#0" />
+            <element signature="e#19177#19531#0" />
+            <element signature="e#19776#20002#0" />
+            <element signature="e#19802#21549#0" />
+            <element signature="e#22283#22641#0" />
+            <element signature="e#26888#27260#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chessboard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="40" column="26" selection-start-line="40" selection-start-column="26" selection-end-line="40" selection-end-column="26" />
+        <state relative-caret-position="109">
+          <caret line="105" column="24" lean-forward="true" selection-start-line="105" selection-start-column="24" selection-end-line="105" selection-end-column="24" />
           <folding>
-            <element signature="e#1591#1786#0" />
             <element signature="e#1824#2166#0" />
             <element signature="e#2202#3540#0" />
             <element signature="e#3616#3790#0" />
